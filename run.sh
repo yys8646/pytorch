@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash run.sh -n project_name -s /home/mlg/yys -t /home/yys -c /bin/bash
+# bash run.sh -n project_name
 
 while getopts rn: option
 do
@@ -13,12 +13,13 @@ done
 docker run ${REMOVE} \
            -it \
            --net host \
-           ${NAME:-"--name=pytorch0.4"} \
+           ${NAME:-"--name=pytorch"} \
            -e DISPLAY \
            -v=$HOME/.Xauthority:/root/.Xauthority:rw \
            -v=/tmp/.X11-unix:/tmp/.X11-unix:rw \
-           --mount type=bind,source=${SOURCE:-$HOME/yys},target=${TARGET:-/yys} \
-           --mount type=bind,source=/mnt/sdb1/data,target=/data \
+           --mount type=bind,source=${SOURCE:-$HOME/yys},target=${TARGET:-/home/yys} \
+           --mount type=bind,source=/mnt/sdb1/data,target=/home/data \
            --gpus all \
-           pytorch/pytorch:0.4_cuda9_cudnn7 \
-           /bin/bash
+           yys8646/miniconda3:4.7.10-ubuntu16.04-cuda9.0-cudnn7-jupyter \
+           /bin/bash \
+           -c "/opt/conda/bin/conda create -n pytorch pytorch=0.4.1 cuda90 -c pytorch -y"
