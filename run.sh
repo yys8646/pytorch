@@ -13,7 +13,7 @@ done
 docker run ${REMOVE} \
            -it \
            --net host \
-           ${NAME:-"--name=pytorch"} \
+           ${NAME:-"--name=pytorch0.4.1"} \
            -e DISPLAY \
            -v=$HOME/.Xauthority:/root/.Xauthority:rw \
            -v=/tmp/.X11-unix:/tmp/.X11-unix:rw \
